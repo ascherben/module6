@@ -6,12 +6,13 @@ This project replicates https://github.com/code-heim/go_21_goroutines_pipeline G
 
 ### Results
 
-Concurrent mode was faster than sequential mode when processing four images. I ran the benchmark for concurrent and sequential 1000x and I did an additional check with running it 5x. The results were all similar. There were significant improvements in performance using the concurrent method. 
+Concurrent mode was faster than sequential mode when processing four images. I ran the benchmarks for both concurrent and sequential mode with 1,000 iterations. I also did an additional consistency check using `-count=5`, and the results were similar across repeated runs. The concurrent method showed a noticeable improvement in performance.
+
 
 | Mode | Time per Run |
 |---|---:|
-| Concurrent | ~120 ms |
-| Sequential | ~163 ms |
+| Concurrent | ~120 ms/op |
+| Sequential | ~163 ms/op |
 
 Benchmarks were run with 1,000 iterations:
 
@@ -100,7 +101,7 @@ go test -bench=. -benchmem -benchtime=1000x ./...
 ## Modifications from Original
 
 - Added descriptive error messages to `ReadImage` and `WriteImage`
-- Added a `--mode` flag so the program can be run with or without goroutines
+- Added a `-mode` flag so the program can be run with or without goroutines
 - Added separate `concurrent` and `sequential` functions
 - Designed the concurrent function to use goroutines and channels
 - Designed the sequential function to process images one at a time without goroutines
