@@ -1,0 +1,28 @@
+How does my assignment look, did I format things correctly and write the code in a way that makes sense?
+
+
+Overall this is a solid assignment. Here's a breakdown:
+
+README — Well formatted. The table, code blocks, and section organization are all correct. One very minor note: the separator row in the table has slightly different dash counts (---------- vs -----------), but it renders fine and isn't something to worry about.
+
+image_processing.go — Clean and correct. The Resize function properly handles aspect ratio by passing 0 to the library for the shorter dimension. Error messages with fmt.Errorf and %w wrapping are idiomatic Go.
+
+image_processing_test.go — Good coverage of all four functions. One Go convention issue: in TestGray (image_processing_test.go:75-76), the variables X and Y should be lowercase x and y. In Go, uppercase signals an exported (public) identifier, so naming local variables with uppercase is unconventional.
+
+main.go — The pipeline structure is correct and readable. Two small things:
+
+The comments // add concurrent function (main.go:107) and // add regular function (main.go:126) just restate the function name — they add no value and can be removed.
+The sequential function returns false and exits on the first error, while concurrent processes all images even if one fails. This isn't wrong, just a subtle behavioral difference between the two modes worth being aware of.
+main_test.go — Benchmark tests are correct and minimal, which is exactly right for this purpose.
+
+AI disclosure — One thing to flag: the ai/deepseek.txt file contains questions answered by DeepSeek, but the README's AI notes section only mentions Claude and Gemini. If DeepSeek was also used, it's worth adding it to the disclosure to be accurate.
+
+The code is clean, idiomatic Go, and demonstrates a real understanding of the pipeline pattern. The only change I'd actually recommend making is lowercasing X and Y in the grayscale test.
+
+should I fix this the sequential function returning false and exiting on the first error? 
+
+No, I wouldn't bother. The code is correct and functional, and this is an assignment focused on demonstrating the concurrency pipeline pattern — not production-grade error handling.
+
+The only scenario where the difference would matter is if one of your 4 image files failed to load or process, and in that case both functions still return false and print the error. The behavioral gap (skip vs. stop) doesn't affect the performance comparison or the core concepts being demonstrated.
+
+Leave it as-is.
